@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart'; 
 
  
-class login extends StatelessWidget {
+class signUp extends StatelessWidget {
   
  
-  static const String _title = 'TUTOR';
+  static const String _title = 'SampleApp';
  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
+      
+      title: _title,
       home: Scaffold(
-
+        appBar: AppBar(title: const Text(_title)),
         body: const MyStatefulWidget(),
       ),
        themeMode: ThemeMode.light,
@@ -36,28 +37,27 @@ class MyStatefulWidget extends StatefulWidget {
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
- 
+  TextEditingController skillsController = TextEditingController();
+
+  String? gender;
+
+
   @override
   Widget build(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.all(10),
-          child: ListView(
+        child: ListView(
           children: <Widget>[
             Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
                 child: const Text(
-                  'WELCOME',
+                  'TutorialKart',
                   style: TextStyle(
                       color: Colors.yellow,
                       fontWeight: FontWeight.w500,
                       fontSize: 30),
                 )),
-            Container(
-              alignment: Alignment.center,
-              child: Image.asset("assets/images/tutor.jpg",
-                  fit:BoxFit.cover, ),
-            ),
             Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
@@ -76,6 +76,16 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               ),
             ),
             Container(
+              padding : const EdgeInsets.all(10),
+              child: TextField(
+                controller: skillsController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'skills'
+                ),
+              ),
+            ),
+            Container(
               padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
               child: TextField(
                 obscureText: true,
@@ -86,22 +96,48 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 ),
               ),
             ),
-            TextButton(
-              onPressed: () {
-                //forgot password screen
-              },
-              child: const Text('Forgot Password',
-              style: TextStyle(
-                color: Colors.amberAccent,
+            Container(
+              padding: EdgeInsets.all(20),
+              child:
+              Column(
+                children: [
 
+                  Text("What is your role?", style: TextStyle(
+                      fontSize: 16
+                  ),),
 
-              ),),
+                  Divider(),
+
+                  RadioListTile(
+                    title: Text("Teacher"),
+                    value: "Teacher",
+                    groupValue: gender,
+                    onChanged: (value){
+                      setState(() {
+                        gender = value.toString();
+                      });
+                    },
+                  ),
+
+                  RadioListTile(
+                    title: Text("Student"),
+                    value: "Student",
+                    groupValue: gender,
+                    onChanged: (value){
+                      setState(() {
+                        gender = value.toString();
+                      });
+                    },
+                  ),
+                ],
+              ),
             ),
+
             Container(
                 height: 50,
                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                 child: ElevatedButton(
-                  child: const Text('Login'),
+                  child: const Text('SignUp'),
                   onPressed: () {
                     print(nameController.text);
                     print(passwordController.text);
@@ -110,7 +146,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             ),
             Row(
               children: <Widget>[
-                const Text('Does not have account?'),
+                const Text('Do have an account?'),
                 TextButton(
                   child: const Text(
                     'Sign in',
